@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 New Year Blessing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; }
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', 'Pyidaungsu', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* အပြင်စာမျက်နှာ မီးရှူးမီးပန်း နောက်ခံ */
+        #welcome-screen {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1467810563316-b5476525c0f9?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            transition: opacity 1s ease, visibility 1s;
+        }
+
+        /* အတွင်းစာမျက်နှာ Tulip နောက်ခံ */
+        .bg-tulip {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCl01AWIOCP55GrkkT_ygewbOX2kT1HyegQg&s');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .lang-switch {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 200;
+            background: rgba(255, 255, 255, 0.9);
+            color: #1a5276;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 2px solid #1a5276;
+            cursor: pointer;
+            font-weight: bold;
+            display: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        #start-button {
+            padding: 15px 35px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(243, 156, 18, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        #content-area {
+            display: none;
+            width: 95%;
+            max-width: 800px;
+            margin: 60px auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        h1 { color: #1a5276; text-align: center; font-size: 1.8em; margin-bottom: 25px; }
+        h2 { color: #b7950b; font-size: 1.4em; margin-top: 30px; border-left: 5px solid #b7950b; padding-left: 15px; }
+        p { line-height: 1.8; color: #2c3e50; font-size: 1.05em; text-align: justify; margin-bottom: 18px; }
+        
+        blockquote {
+            background: rgba(248, 249, 249, 0.8);
+            border-left: 8px solid #b7950b;
+            padding: 25px;
+            margin: 30px 0;
+            font-style: italic;
+            text-align: center;
+            color: #1a5276;
+            font-size: 1.1em;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .contact-container {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .contact-title { font-size: 1.1em; color: #1a5276; font-weight: bold; margin-bottom: 15px; }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: #555;
+            font-size: 0.9em;
+        }
+        .contact-item i {
+            width: 30px; height: 30px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; margin-right: 12px;
+            color: white; font-size: 0.9em;
+        }
+        .viber-bg { background-color: #7360f2; }
+        .email-bg { background-color: #ea4335; }
+        .fb-bg { background-color: #1877f2; }
+        .tg-bg { background-color: #0088cc; }
+
+        .footer-wish {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.6em;
+            color: #b7950b;
+            margin: 30px 0;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            #content-area { padding: 25px; width: 92%; }
+            h1 { font-size: 1.4em; }
+            h2 { font-size: 1.2em; }
+            p { font-size: 0.95em; }
+        }
+
+        .lang-mm { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="bg-tulip" id="tulipBg"></div>
+    <button class="lang-switch" id="langBtn" onclick="toggleLanguage()">Switch to Myanmar 🇲🇲</button>
+
+    <div id="welcome-screen">
+        <button id="start-button" onclick="showBlessing()">Happy New Year 2026 ✨</button>
+    </div>
+
+    <div id="content-area">
+        
+        <div class="lang-mm" id="mm-text">
+            <h1>၂၀၂၆ ခုနှစ်သစ်အတွက်<br><strong>နှစ်သစ်ဆုမွန်ကောင်းများ</strong></h1>
+            <p>၂၀၂၅ ခုနှစ်ရဲ့ နေဝင်ချိန်နဲ့အတူ ကုန်ဆုံးသွားခဲ့တဲ့ အချိန်နာရီတိုင်းဟာ ကျွန်ုပ်တို့အတွက် သင်ခန်းစာကိုယ်စီ၊ မှတ်တိုင်ကိုယ်စီနဲ့ ကျန်ရစ်ခဲ့ပါပြီ။ အခုဆိုရင် ကျွန်ုပ်တို့အားလုံးဟာ မျှော်လင့်ချက်အသစ်တွေ ပြည့်နှက်နေတဲ့ ၂၀၂၆ ခုနှစ်ရဲ့ မိုးသောက်ယံကို လှမ်းမျှော်ကြည့်နေကြပြီ ဖြစ်ပါတယ်။</p>
+            <p>ပြီးခဲ့တဲ့ တစ်နှစ်တာခရီးမှာ ကျွန်ုပ်တို့အားလုံး ရုန်းကန်မှုတွေ၊ စိန်ခေါ်မှုတွေနဲ့ ပင်ပန်းနွမ်းနယ်ခဲ့ကြရတာတွေ ရှိနိုင်ပါတယ်။ အဆင်မပြေမှုတွေကြားမှာ စိတ်ဓာတ်ကျခဲ့ရတဲ့ နေ့ရက်တွေ၊ အားငယ်ခဲ့ရတဲ့ ညတွေလည်း ရှိခဲ့မှာပါ။ ဒါပေမဲ့ အဲဒီအခက်အခဲတွေကို ကျော်ဖြတ်ပြီး အခုလို နှစ်သစ်တစ်ခုကို ကျန်းကျန်းမာမာနဲ့ ရောက်ရှိလာနိုင်တာဟာ မိမိကိုယ်ကိုယ် ဂုဏ်ယူထိုက်တဲ့ အောင်မြင်မှုတစ်ခုပဲ ဖြစ်ပါတယ်။ ခင်ဗျာူ........</p>
+
+            <h2>အနာဂတ်အတွက် ဆုမွန်ကောင်းများ</h2>
+            <p><strong>ကိုယ်စိတ်နှစ်ဖြာ အေးချမ်းခြင်း:</strong> လောကီလောကုတ္တရာ နှစ်ဖြာသော အကျိုးစီးပွားတွေကို ဆောင်ရွက်နိုင်ဖို့အတွက် ကိုယ်ရောစိတ်ပါ ကျန်းမာလန်းဆန်းတဲ့ နေ့ရက်တွေကို ပိုင်ဆိုင်နိုင်ပါစေ။</p>
+            <p><strong>မျှော်လင့်ချက်များ အသက်ဝင်ခြင်း:</strong> ရင်ထဲမှာ နှစ်ပေါင်းများစွာ သိမ်းဆည်းထားရတဲ့ အိမ်မက်တွေ၊ ရည်မှန်းချက်တွေဟာ ဒီနှစ်သစ်မှာ လက်တွေ့ကျကျ အကောင်အထည်ဖော်နိုင်ပြီး အောင်မြင်မှုသီးပွင့်တွေ ရရှိပါစေ။</p>
+            <p><strong>မေတ္တာရိပ်၌ ခိုလှုံနိုင်ခြင်း:</strong> မိသားစု၊ သူငယ်ချင်း၊ ပတ်ဝန်းကျင်နဲ့ အပြန်အလှန် နားလည်မှု၊ ယုံကြည်မှုတွေ တိုးပွားပြီး မေတ္တာတရားတွေ ထွန်းကားတဲ့ လူမှုဝန်းကျင်ကို ပိုင်ဆိုင်နိုင်ပါစေ။</p>
+            <p><strong>အခွင့်အလမ်းသစ်များ ရရှိခြင်း:</strong> ပိတ်ဆို့နေတဲ့ တံခါးတွေ ပွင့်သွားပြီး၊ ဘဝအတွက် လမ်းစသစ်တွေ၊ အခွင့်အရေးကောင်းတွေ အစီအရီ ပေါ်ပေါက်လာပါစေ။</p>
+
+            <h2>နှစ်သစ်အတွက် ခွန်အားသစ်</h2>
+            <p>နှစ်သစ်ဆိုတာ ပြက္ခဒိန်အသစ်တစ်ခု လဲလိုက်ရုံတင်မဟုတ်ဘဲ ကျွန်ုပ်တို့ရဲ့ စိတ်နေစိတ်ထားကို အသစ်ပြင်ဆင်ဖို့ အခွင့်အရေးတစ်ခုလည်း ဖြစ်ပါတယ်။</p>
+            <blockquote>
+                "ပြီးခဲ့တာတွေအတွက် နောင်တမရဘဲ ဘဝရဲ့ သင်ခန်းစာတစ်ခုအဖြစ် မှတ်ယူပြီး အနာဂတ်အတွက်လည်း စိုးရိမ်ခြင်းမရှိဘဲ <strong>လက်ရှိအချိန်ကို</strong> အကောင်းဆုံး ရှင်သန်ခြင်းကသာ စစ်မှန်တဲ့ ပျော်ရွှင်မှုပါပဲ။"
+            </blockquote>
+            <p>ဒီ ၂၀၂၆ ခုနှစ်မှာ ကျွန်ုပ်တို့အားလုံးဟာ အရင်ကထက် ပိုမိုရင့်ကျက်သူတွေ၊ ပိုမိုကြင်နာတတ်သူတွေ၊ ပိုမိုသည်းခံတတ်သူတွေအဖြစ် ပြောင်းလဲရှင်သန်ကြပါစို့။</p>
+
+            <div class="footer-wish">ပျော်ရွှင်ဖွယ်ရာ နှစ်သစ်ဖြစ်ပါစေ။</div>
+            <p style="text-align: center;">လူသားအားလုံး ဘေးကင်းလုံခြုံပြီး၊ လိုအင်ဆန္ဒများ တစ်လုံးတစ်ဝတည်း ပြည့်စုံကာ၊ ငြိမ်းချမ်းသာယာသော ဘဝခရီးကို ဆက်လက်လျှောက်လှမ်းနိုင်ကြပါစေ။</p>
+        </div>
+
+        <div class="lang-en" id="en-text">
+            <h1>New Year Greetings:<br><strong>Showers of Loving-Kindness for 2026</strong></h1>
+            <p>As the sun sets on 2025, every hour that passes leaves us with its own unique lessons and milestones. We are now looking forward to the dawn of 2026, a year brimming with new hopes and aspirations.</p>
+            <p>In the journey of the past year, we all may have faced struggles, challenges, and moments of exhaustion. However, being able to overcome those hardships and enter this New Year in good health is, in itself, an achievement to be proud of.</p>
+
+            <h2>Best Wishes for the Future</h2>
+            <p><strong>Peace of Mind and Body:</strong> May you possess healthy and refreshing days, both physically and mentally, to pursue both worldly and spiritual well-being.</p>
+            <p><strong>Hopes Coming to Life:</strong> May the dreams and goals you have cherished for years be practically realized this New Year, bringing forth the fruits of success.</p>
+            <p><strong>Shelter of Love:</strong> May mutual understanding and trust grow among family, friends, and the community.</p>
+            <p><strong>New Opportunities:</strong> May closed doors be opened, and may a series of new paths and great opportunities arise for your life.</p>
+
+            <h2>New Strength for the New Year</h2>
+            <blockquote>
+                "Instead of regretting the past, embrace it as a life lesson. Live the <strong>present moment</strong> to the fullest without worrying about the future that has yet to arrive."
+            </blockquote>
+            <p>In 2026, let us all strive to become more mature, kinder, and more patient individuals. No matter how difficult the world may be, it is essential to always keep a "warm smile" in our hearts.</p>
+
+            <div class="footer-wish">Happy New Year!</div>
+            <p style="text-align: center;">May all humanity be safe and secure, and may you continue to walk a life journey filled with peace and tranquility.</p>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-title">Connect with Me</div>
+            <a href="viber://chat?number=%2B959693718379" class="contact-item">
+                <i class="fab fa-viber viber-bg"></i><span>Viber: +959693718379</span>
+            </a>
+            <a href="mailto:satkaungk16@gmail.com" class="contact-item">
+                <i class="fas fa-envelope email-bg"></i><span>Email: satkaungk16@gmail.com</span>
+            </a>
+            <a href="https://www.facebook.com/sat.kaung.khant.72569" target="_blank" class="contact-item">
+                <i class="fab fa-facebook-f fb-bg"></i><span>Facebook: Sat Kaung Khant</span>
+            </a>
+            <a href="https://t.me/satkaungkhant11" target="_blank" class="contact-item">
+                <i class="fab fa-telegram-plane tg-bg"></i><span>Telegram: Sat Kaung Khant</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function showBlessing() {
+            const welcome = document.getElementById('welcome-screen');
+            welcome.style.opacity = '0';
+            setTimeout(() => {
+                welcome.style.visibility = 'hidden';
+                const tulip = document.getElementById('tulipBg');
+                tulip.style.opacity = '1';
+                const content = document.getElementById('content-area');
+                content.style.display = 'block';
+                setTimeout(() => content.style.opacity = '1', 50);
+                setTimeout(() => content.style.transform = 'translateY(0)', 50);
+                document.getElementById('langBtn').style.display = 'block';
+                document.body.style.overflow = 'auto';
+            }, 1000);
+        }
+
+        let currentLang = 'en';
+        function toggleLanguage() {
+            const enText = document.getElementById('en-text');
+            const mmText = document.getElementById('mm-text');
+            const btn = document.getElementById('langBtn');
+            if (currentLang === 'en') {
+                enText.style.display = 'none'; mmText.style.display = 'block';
+                btn.innerText = 'Switch to English 🇺🇸'; currentLang = 'mm';
+            } else {
+                enText.style.display = 'block'; mmText.style.display = 'none';
+                btn.innerText = 'Switch to Myanmar 🇲🇲'; currentLang = 'en';
+            }
+        }
+    </script>
+</body>
+</html>
